@@ -49,24 +49,8 @@ def load_data():
 
     return df
 
-
 # ----------------------------
-# Cumulative transformation
-# ----------------------------
-
-def add_cumulative(df):
-    df = df.sort_values(["iso3", "year"])
-
-    df["cum_weighted_total"] = (
-        df.groupby("iso3")["wdj_expression"]
-        .cumsum()
-    )
-
-    return df
-
-
-# ----------------------------
-# Time filter (AFTER cumulative)
+# Time filter
 # ----------------------------
 
 def filter_time(df):
@@ -273,6 +257,18 @@ def plot_global_trends(df):
 
     global_avg = df.groupby("year")[cols].mean().reset_index()
 
+    # Print last 20 years of yearly averages for inspection
+    recent_global_avg = global_avg.sort_values("year").tail(20)
+
+    print("\nGlobal yearly averages for last 20 years:")
+    print(recent_global_avg.to_string(index=False))
+
+    # Save to CSV for easier review
+    recent_global_avg.to_csv(
+        OUTPUT_DIR / "global_trends_last_20_years.csv",
+        index=False
+    )
+
     fig, ax = plt.subplots(figsize=(10, 6))
 
     for col in cols:
@@ -288,22 +284,72 @@ def plot_global_trends(df):
 
 
 # ----------------------------
-# Country trends (UPDATED)
+# Country trends
 # ----------------------------
 
 def plot_country_trends(df):
     fig, ax = plt.subplots(figsize=(12, 8))
 
+    # --- Plot all countries faintly ---
     for country, group in df.groupby("COUNTRY"):
         ax.plot(
             group["year"],
-            group["cum_weighted_total"],
-            alpha=0.25
+            group["wdj_expression"],
+            alpha=0.2,
+            color="gray"
         )
 
-    ax.set_title("Country Trends: Cumulative Weighted De Jure Total")
+    # --- Helper to plot + label a country ---
+    def highlight_country(country_name, color):
+        subset = df[df["COUNTRY"] == country_name].sort_values("year")
+        if subset.empty:
+            return
+
+        ax.plot(
+            subset["year"],
+            subset["wdj_expression"],
+            color=color,
+            linewidth=2.5,
+            label=country_name
+        )
+
+        # label at end
+        ax.text(
+            subset["year"].iloc[-1],
+            subset["wdj_expression"].iloc[-1],
+            f" {country_name}",
+            color=color,
+            fontsize=10,
+            va="center"
+        )
+
+    # --- Poland ---
+    highlight_country("Poland", "red")
+
+    # --- Venezuela ---
+    highlight_country("Venezuela", "blue")
+
+    # --- Find lowest country in most recent year ---
+    latest_year = df["year"].max()
+
+    latest_df = df[df["year"] == latest_year].copy()
+
+    # Drop missing values just in case
+    latest_df = latest_df.dropna(subset=["wdj_expression"])
+
+    if not latest_df.empty:
+        lowest_row = latest_df.loc[latest_df["wdj_expression"].idxmin()]
+        lowest_country = lowest_row["COUNTRY"]
+
+        highlight_country(lowest_country, "black")
+
+        print(f"Lowest country in {latest_year}: {lowest_country} ({lowest_row['wdj_expression']:.3f})")
+
+    ax.set_title("Country Trends: Freedom of Expression")
     ax.set_xlabel("Year")
-    ax.set_ylabel("Cumulative Value")
+    ax.set_ylabel("Weighted De Jure Expression")
+
+    ax.legend()
 
     plt.savefig(OUTPUT_DIR / "country_trends.png", dpi=300, bbox_inches="tight")
     plt.close()
@@ -317,7 +363,6 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     df = load_data()
-    df = add_cumulative(df)
     df = filter_time(df)
 
     # Load world map (updated method)
