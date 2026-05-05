@@ -1,0 +1,48 @@
+COUNTRY,iso3,first_unmatched_year,last_unmatched_year,unmatched_years,panel_first_year,panel_last_year,panel_years,defacto_country_name,defacto_first_year,defacto_last_year,defacto_years,defacto_iso_present,audit_reason,likely_aggregate_or_nonstandard_code
+ASEAN,ASEAN,1894,2025,132,1894,2025,132,,,,,False,aggregate/non-country code not in defacto data,True
+African Union,AU,1894,2025,132,1894,2025,132,,,,,False,aggregate/non-country code not in defacto data,True
+European Union,EU,1894,2025,132,1894,2025,132,,,,,False,aggregate/non-country code not in defacto data,True
+Organization of American States,OAS,1894,2025,132,1894,2025,132,,,,,False,aggregate/non-country code not in defacto data,True
+Poland,POL,1894,1943,29,1894,2025,132,Poland,1789.0,2025.0,171.0,True,matched key missing in specific years,False
+Honduras,HND,1921,1944,24,1894,2025,132,Honduras,1838.0,2025.0,188.0,True,matched key missing in specific years,False
+Oman,OMN,1894,1899,6,1894,2025,132,Oman,1789.0,2025.0,237.0,True,matched key missing in specific years,False
+South Sudan,SSD,1894,2010,117,1894,2025,132,South Sudan,2011.0,2025.0,15.0,True,panel years before defacto coverage starts,False
+Kosovo,XKX,1894,1998,105,1894,2025,132,Kosovo,1999.0,2025.0,27.0,True,panel years before defacto coverage starts,True
+Azerbaijan,AZE,1894,1989,96,1894,2025,132,Azerbaijan,1990.0,2025.0,36.0,True,panel years before defacto coverage starts,False
+Kazakhstan,KAZ,1894,1989,96,1894,2025,132,Kazakhstan,1990.0,2025.0,36.0,True,panel years before defacto coverage starts,False
+Tajikistan,TJK,1894,1989,96,1894,2025,132,Tajikistan,1990.0,2025.0,36.0,True,panel years before defacto coverage starts,False
+Bangladesh,BGD,1894,1970,77,1894,2025,132,Bangladesh,1971.0,2025.0,55.0,True,panel years before defacto coverage starts,False
+Cameroon,CMR,1894,1960,67,1894,2025,132,Cameroon,1961.0,2025.0,65.0,True,panel years before defacto coverage starts,False
+Pakistan,PAK,1894,1946,53,1894,2025,132,Pakistan,1947.0,2025.0,79.0,True,panel years before defacto coverage starts,False
+Vietnam,VNM,1894,1944,51,1894,2025,132,Vietnam,1945.0,2025.0,81.0,True,panel years before defacto coverage starts,False
+Chad,TCD,1894,1919,26,1894,2025,132,Chad,1920.0,2025.0,106.0,True,panel years before defacto coverage starts,False
+Rwanda,RWA,1894,1915,22,1894,2025,132,Rwanda,1916.0,2025.0,110.0,True,panel years before defacto coverage starts,False
+Nigeria,NGA,1894,1913,20,1894,2025,132,Nigeria,1914.0,2025.0,112.0,True,panel years before defacto coverage starts,False
+Tanzania,TZA,1894,1913,20,1894,2025,132,Tanzania,1914.0,2025.0,112.0,True,panel years before defacto coverage starts,False
+Zambia,ZMB,1894,1910,17,1894,2025,132,Zambia,1911.0,2025.0,115.0,True,panel years before defacto coverage starts,False
+Gabon,GAB,1894,1909,16,1894,2025,132,Gabon,1910.0,2025.0,116.0,True,panel years before defacto coverage starts,False
+Algeria,DZA,1894,1899,6,1894,2025,132,Algeria,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Angola,AGO,1894,1899,6,1894,2025,132,Angola,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Bhutan,BTN,1894,1899,6,1894,2025,132,Bhutan,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Botswana,BWA,1894,1899,6,1894,2025,132,Botswana,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Cambodia,KHM,1894,1899,6,1894,2025,132,Cambodia,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+"Côte d""Ivoire",CIV,1894,1899,6,1894,2025,132,Ivory Coast,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Eswatini,SWZ,1894,1899,6,1894,2025,132,Eswatini,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Fiji,FJI,1894,1899,6,1894,2025,132,Fiji,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Guyana,GUY,1894,1899,6,1894,2025,132,Guyana,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Kenya,KEN,1894,1899,6,1894,2025,132,Kenya,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Laos,LAO,1894,1899,6,1894,2025,132,Laos,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Lesotho,LSO,1894,1899,6,1894,2025,132,Lesotho,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Malawi,MWI,1894,1899,6,1894,2025,132,Malawi,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Malaysia,MYS,1894,1899,6,1894,2025,132,Malaysia,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Malta,MLT,1894,1899,6,1894,2025,132,Malta,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Namibia,NAM,1894,1899,6,1894,2025,132,Namibia,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Philippines,PHL,1894,1899,6,1894,2025,132,Philippines,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Sierra Leone,SLE,1894,1899,6,1894,2025,132,Sierra Leone,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Somalia,SOM,1894,1899,6,1894,2025,132,Somalia,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+South Africa,ZAF,1894,1899,6,1894,2025,132,South Africa,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Sri Lanka,LKA,1894,1899,6,1894,2025,132,Sri Lanka,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Taiwan,TWN,1894,1899,6,1894,2025,132,Taiwan,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+The Gambia,GMB,1894,1899,6,1894,2025,132,The Gambia,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Uganda,UGA,1894,1899,6,1894,2025,132,Uganda,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
+Zimbabwe,ZWE,1894,1899,6,1894,2025,132,Zimbabwe,1900.0,2025.0,126.0,True,panel years before defacto coverage starts,False
