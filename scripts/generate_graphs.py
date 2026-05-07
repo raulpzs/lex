@@ -168,80 +168,93 @@ def plot_weighted_map_raw(df, world):
     plt.close()
 
 # clipping and forced symmetry around zero
-def plot_weighted_map(df, world):
 
-    # --- Aggregate ---
-    avg_df = (
-        df.groupby("iso3")["wdj_expression"]
-        .mean()
-        .reset_index()
-    )
+# defining the snapshot years
+SNAPSHOT_YEARS = [2000, 2005, 2010, 2015, 2020, 2025]
 
-    merged = world.merge(
-        avg_df,
-        left_on="iso_a3",
-        right_on="iso3",
-        how="left"
-    )
+# clipping and forced symmetry around zero
+def plot_weighted_map(df, world, years=SNAPSHOT_YEARS):
 
-    # --- Quantile clipping ---
-    vmin_q = merged["wdj_expression"].quantile(0.05)
-    vmax_q = merged["wdj_expression"].quantile(0.95)
+    for year in years:
 
-    # --- Enforce symmetry around 0 ---
-    abs_max = max(abs(vmin_q), abs(vmax_q))
-    vmin, vmax = -abs_max, abs_max
+        # --- Year snapshot ---
+        year_df = (
+            df[df["year"] == year]
+            .groupby("iso3")["wdj_expression"]
+            .mean()
+            .reset_index()
+        )
 
-    norm = mcolors.TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
+        merged = world.merge(
+            year_df,
+            left_on="iso_a3",
+            right_on="iso3",
+            how="left"
+        )
 
-    # --- Plot ---
-    fig, ax = plt.subplots(figsize=(12, 6))
+        # Skip if no data for year
+        if merged["wdj_expression"].notna().sum() == 0:
+            print(f"No data available for {year}; skipping map.")
+            continue
 
-    merged.plot(
-        column="wdj_expression",
-        ax=ax,
-        cmap="coolwarm",
-        norm=norm,
-        legend=False,  # <-- turn off GeoPandas legend
-        linewidth=0,
-        missing_kwds={
-            "color": "#f9f9f9",
-            "hatch": "///",
-            "edgecolor": "#cccccc",
-            "linewidth": 0.3,
-            "label": "No data"
-        }
-    )
+        # --- Quantile clipping ---
+        vmin_q = merged["wdj_expression"].quantile(0.05)
+        vmax_q = merged["wdj_expression"].quantile(0.95)
 
-    # --- Borders overlay ---
-    world.boundary.plot(
-        ax=ax,
-        color="black",
-        linewidth=0.3
-    )
+        # --- Enforce symmetry around 0 ---
+        abs_max = max(abs(vmin_q), abs(vmax_q))
+        vmin, vmax = -abs_max, abs_max
 
-    # --- Manual colorbar ---
-    sm = plt.cm.ScalarMappable(cmap="coolwarm", norm=norm)
-    sm.set_array([])
+        norm = mcolors.TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
 
-    cbar = fig.colorbar(sm, ax=ax)
+        # --- Plot ---
+        fig, ax = plt.subplots(figsize=(12, 6))
 
-    # Symmetric ticks centered at 0
-    ticks = np.linspace(vmin, vmax, 7)
-    cbar.set_ticks(ticks)
-    cbar.ax.set_yticklabels([f"{t:.2f}" for t in ticks])
+        merged.plot(
+            column="wdj_expression",
+            ax=ax,
+            cmap="coolwarm",
+            norm=norm,
+            legend=False,
+            linewidth=0,
+            missing_kwds={
+                "color": "#f9f9f9",
+                "hatch": "///",
+                "edgecolor": "#cccccc",
+                "linewidth": 0.3,
+                "label": "No data"
+            }
+        )
 
-    cbar.set_label("Weighted De Jure Score")
+        # --- Borders overlay ---
+        world.boundary.plot(
+            ax=ax,
+            color="black",
+            linewidth=0.3
+        )
 
-    # --- Title / layout ---
-    ax.set_title("Average Weighted De Jure (1976–2025)")
-    ax.axis("off")
+        # --- Manual colorbar ---
+        sm = plt.cm.ScalarMappable(cmap="coolwarm", norm=norm)
+        sm.set_array([])
 
-    plt.savefig(OUTPUT_DIR / "weighted_total_map.png", dpi=300, bbox_inches="tight")
-    plt.close()
+        cbar = fig.colorbar(sm, ax=ax)
 
+        ticks = np.linspace(vmin, vmax, 7)
+        cbar.set_ticks(ticks)
+        cbar.ax.set_yticklabels([f"{t:.2f}" for t in ticks])
 
+        cbar.set_label("Weighted De Jure Score")
 
+        # --- Title / layout ---
+        ax.set_title(f"Weighted De Jure Expression ({year})")
+        ax.axis("off")
+
+        plt.savefig(
+            OUTPUT_DIR / f"weighted_total_map_{year}.png",
+            dpi=300,
+            bbox_inches="tight"
+        )
+        plt.close()
 
 # ----------------------------
 # Global trends
